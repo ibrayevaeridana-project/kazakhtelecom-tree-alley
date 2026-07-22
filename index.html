@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Дерево жизни сотрудника | Казахтелеком</title>
+    <meta
+      name="description"
+      content="Локальный внутренний сайт проекта «Дерево жизни сотрудника» для Будущей Аллеи Казахтелекома."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <nav class="topbar" aria-label="Главная навигация">
+          <a class="brand" href="#top" aria-label="Казахтелеком, Дерево жизни сотрудника">
+            <span class="brand-mark">KT</span>
+            <span>
+              <span class="brand-name">Казахтелеком</span>
+              <span class="brand-caption">экологическая инициатива</span>
+            </span>
+          </a>
+
+          <div class="nav-actions">
+            <a href="#map">Карта</a>
+            <a href="#journal">Журнал</a>
+            <a href="#stats">Статистика</a>
+          </div>
+        </nav>
+
+        <section id="top" class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Таза Қазақстан · корпоративная культура · молодые сотрудники</p>
+            <h1>Дерево жизни сотрудника</h1>
+            <p class="subtitle">Будущая Аллея Казахтелекома</p>
+            <p class="hero-text">
+              Каждый новый сотрудник до 35 лет высаживает именное дерево как символ
+              начала своего пути в компании. Со временем эти деревья складываются в
+              живую карту вклада Казахтелекома в озеленение городов Казахстана.
+            </p>
+
+            <div class="hero-actions">
+              <a class="primary-action" href="#login">Найти свое дерево</a>
+              <a class="secondary-action" href="#map">Открыть генплан</a>
+            </div>
+          </div>
+
+          <aside class="login-card" id="login" aria-labelledby="login-title">
+            <div class="section-heading compact">
+              <span class="leaf-dot"></span>
+              <div>
+                <h2 id="login-title">Вход сотрудника</h2>
+                <p>Введите ФИО и табельный номер, чтобы открыть свое дерево.</p>
+              </div>
+            </div>
+
+            <form id="loginForm" class="login-form">
+              <label>
+                <span>ФИО</span>
+                <input id="fullNameInput" type="text" autocomplete="name" placeholder="Например: Айдана Сарсенова" />
+              </label>
+
+              <label>
+                <span>Табельный номер</span>
+                <input id="employeeNumberInput" type="text" autocomplete="off" placeholder="Например: KT-10234" />
+              </label>
+
+              <button type="submit">Показать мое дерево</button>
+              <p id="loginMessage" class="form-message" role="status"></p>
+            </form>
+          </aside>
+        </section>
+      </header>
+
+      <main>
+        <section class="metrics" id="stats" aria-label="Статистика проекта">
+          <article>
+            <span id="totalTrees">0</span>
+            <p>посаженных деревьев</p>
+          </article>
+          <article>
+            <span id="totalCities">0</span>
+            <p>города в проекте</p>
+          </article>
+          <article>
+            <span id="totalDepartments">0</span>
+            <p>подразделений</p>
+          </article>
+          <article>
+            <span id="currentYearTrees">0</span>
+            <p>посадок в 2026 году</p>
+          </article>
+        </section>
+
+        <section class="workspace" id="map">
+          <div class="workspace-header">
+            <div class="section-heading">
+              <span class="leaf-dot"></span>
+              <div>
+                <h2>Генеральный план аллеи</h2>
+                <p>Локальная карта Астаны и будущая 3D-аллея с именными деревьями сотрудников.</p>
+              </div>
+            </div>
+
+            <div class="view-toggle" role="tablist" aria-label="Переключение вида">
+              <button class="active" type="button" data-view="plan" role="tab" aria-selected="true">План</button>
+              <button type="button" data-view="alley" role="tab" aria-selected="false">3D-аллея</button>
+            </div>
+          </div>
+
+          <div class="map-layout">
+            <div class="map-panel active" id="planView">
+              <img class="plan-image" src="assets/maps/astana-plan.svg" alt="Схема будущей Аллеи Казахтелекома в Астане" />
+              <div id="treeLayer" class="tree-layer" aria-label="Именные деревья на карте"></div>
+            </div>
+
+            <div class="alley-panel" id="alleyView" aria-label="Условная 3D-аллея">
+              <div class="sun"></div>
+              <div class="alley-road"></div>
+              <div id="alleyTrees" class="alley-trees"></div>
+            </div>
+
+            <aside class="tree-card" id="treeCard" aria-live="polite">
+              <p class="card-kicker">Выберите дерево</p>
+              <h3>Дерево жизни сотрудника</h3>
+              <p class="empty-card">Нажмите на дерево на плане или найдите сотрудника через вход.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="journal-section" id="journal">
+          <div class="section-heading">
+            <span class="leaf-dot"></span>
+            <div>
+              <h2>Журнал проекта</h2>
+              <p>Все данные берутся из локального файла. Записи можно расширять вручную.</p>
+            </div>
+          </div>
+
+          <div class="filters" aria-label="Фильтры журнала">
+            <label>
+              <span>Поиск</span>
+              <input id="searchInput" type="search" placeholder="ФИО, табельный номер, должность" />
+            </label>
+            <label>
+              <span>Город</span>
+              <select id="cityFilter"></select>
+            </label>
+            <label>
+              <span>Год</span>
+              <select id="yearFilter"></select>
+            </label>
+            <label>
+              <span>Подразделение</span>
+              <select id="departmentFilter"></select>
+            </label>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ФИО</th>
+                  <th>Табельный номер</th>
+                  <th>Должность</th>
+                  <th>Город</th>
+                  <th>Период</th>
+                  <th>Дерево</th>
+                </tr>
+              </thead>
+              <tbody id="journalBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="future-section">
+          <div>
+            <p class="eyebrow">Будущее масштабирование</p>
+            <h2>От Астаны к карте Казахстана</h2>
+            <p>
+              Первый этап показывает посадки в Астане. Следующие версии смогут добавлять
+              города, филиалы и региональные аллеи, чтобы собрать единую национальную
+              карту корпоративного озеленения Казахтелекома.
+            </p>
+          </div>
+          <div class="kazakhstan-map" aria-label="Схема масштабирования по Казахстану">
+            <span>Астана</span>
+            <span>Алматы</span>
+            <span>Шымкент</span>
+            <span>Караганда</span>
+            <span>Актобе</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="data/trees.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
