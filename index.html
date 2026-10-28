@@ -23,7 +23,6 @@
           </a>
 
           <div class="nav-actions">
-            <a href="#registration">Регистрация</a>
             <a href="#map">Карта</a>
             <a href="#journal">Журнал</a>
             <a href="#stats">Статистика</a>
@@ -42,8 +41,8 @@
             </p>
 
             <div class="hero-actions">
-              <a class="primary-action" href="#registration">Зарегистрировать дерево</a>
-              <a class="secondary-action" href="#login">Найти свое дерево</a>
+              <a class="primary-action" href="#login">Найти свое дерево</a>
+              <a class="secondary-action" href="#map">Открыть генплан</a>
             </div>
           </div>
 
@@ -78,7 +77,7 @@
         <section class="metrics" id="stats" aria-label="Статистика проекта">
           <article>
             <span id="totalTrees">0</span>
-            <p>деревьев в демо и этом браузере</p>
+            <p>посаженных деревьев</p>
           </article>
           <article>
             <span id="totalCities">0</span>
@@ -90,91 +89,8 @@
           </article>
           <article>
             <span id="currentYearTrees">0</span>
-            <p>посадок в <span id="currentYearLabel">2026</span> году</p>
+            <p>посадок в 2026 году</p>
           </article>
-        </section>
-
-        <section class="registration-section" id="registration" aria-labelledby="registration-title">
-          <div class="registration-intro">
-            <p class="eyebrow">После посадки</p>
-            <h2 id="registration-title">Зарегистрировать свое дерево</h2>
-            <p>Расскажите о посаженном дереве и отметьте его примерное место на генплане Астаны. Запись сразу появится на карте и в журнале на этом устройстве.</p>
-            <p class="privacy-note">Это локальная регистрация: данные не отправляются организаторам автоматически и не публикуются на GitHub. Для передачи записи скачайте файл после сохранения.</p>
-          </div>
-
-          <div class="registration-form-wrap">
-            <form id="registrationForm" class="registration-form">
-              <label class="form-field full" for="registerName">
-                <span>ФИО сотрудника</span>
-                <input id="registerName" name="fullName" type="text" autocomplete="name" minlength="5" maxlength="120" placeholder="Фамилия Имя Отчество" required />
-              </label>
-              <label class="form-field" for="registerNumber">
-                <span>Табельный номер</span>
-                <input id="registerNumber" name="employeeNumber" type="text" autocomplete="off" maxlength="30" placeholder="Например: KT-10234" required />
-              </label>
-              <label class="form-field" for="registerPosition">
-                <span>Должность</span>
-                <input id="registerPosition" name="position" type="text" maxlength="100" placeholder="Ваша должность" required />
-              </label>
-              <label class="form-field" for="registerDepartment">
-                <span>Подразделение</span>
-                <input id="registerDepartment" name="department" type="text" maxlength="100" placeholder="Ваше подразделение" required />
-              </label>
-              <label class="form-field" for="registerCity">
-                <span>Город</span>
-                <select id="registerCity" name="city" required>
-                  <option value="Астана">Астана</option>
-                </select>
-              </label>
-              <label class="form-field" for="registerDate">
-                <span>Дата посадки</span>
-                <input id="registerDate" name="plantingDate" type="date" required />
-              </label>
-              <label class="form-field" for="registerTreeType">
-                <span>Вид дерева</span>
-                <select id="registerTreeType" name="treeType" required>
-                  <option value="">Выберите вид</option>
-                  <option value="Береза">Береза</option>
-                  <option value="Ель">Ель</option>
-                  <option value="Клен">Клен</option>
-                  <option value="Липа">Липа</option>
-                  <option value="Сосна">Сосна</option>
-                  <option value="Ясень">Ясень</option>
-                  <option value="Другое">Другое</option>
-                </select>
-              </label>
-
-              <div class="placement-field full">
-                <p class="field-title">Место дерева на схеме</p>
-                <p class="field-help">Нажмите на примерное место посадки. Для точной настройки используйте ползунки.</p>
-                <div class="registration-map" id="registrationMap">
-                  <img src="assets/maps/astana-plan.svg" alt="Схема будущей аллеи в Астане" />
-                  <span class="placement-pin" id="placementPin" aria-hidden="true">♣</span>
-                </div>
-                <div class="placement-ranges">
-                  <label for="positionX">По горизонтали <input id="positionX" name="positionX" type="range" min="5" max="95" value="50" /></label>
-                  <label for="positionY">По вертикали <input id="positionY" name="positionY" type="range" min="5" max="95" value="50" /></label>
-                </div>
-                <p id="placeCoordinates" class="field-help" aria-live="polite"></p>
-              </div>
-
-              <label class="confirmation full">
-                <input id="ageConfirmation" name="ageConfirmation" type="checkbox" required />
-                <span>Подтверждаю, что участвую в инициативе для новых сотрудников до 35 лет и указал данные своего посаженного дерева.</span>
-              </label>
-
-              <button class="registration-submit full" type="submit">Сохранить дерево</button>
-              <p id="registrationMessage" class="form-message full" role="status"></p>
-            </form>
-
-            <div id="registrationResult" class="registration-result" hidden>
-              <p>Дерево добавлено на карту этого браузера. Скачайте запись, чтобы передать ее организатору проекта.</p>
-              <div class="result-actions">
-                <button id="downloadRegistration" type="button">Скачать запись JSON</button>
-                <a href="#map">Посмотреть на плане</a>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section class="workspace" id="map">
@@ -218,13 +134,8 @@
             <span class="leaf-dot"></span>
             <div>
               <h2>Журнал проекта</h2>
-              <p>Примеры из файла проекта и записи, сохраненные в этом браузере.</p>
+              <p>Все данные берутся из локального файла. Записи можно расширять вручную.</p>
             </div>
-          </div>
-
-          <div class="journal-toolbar">
-            <span id="localRecordCount">Локальных записей: 0</span>
-            <button id="exportLocalRecords" type="button" disabled>Скачать мои записи JSON</button>
           </div>
 
           <div class="filters" aria-label="Фильтры журнала">
