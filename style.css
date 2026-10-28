@@ -123,6 +123,18 @@ a {
   border-color: var(--line);
 }
 
+.nav-actions .nav-register {
+  background: linear-gradient(135deg, var(--green-700), var(--telecom-blue));
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(31, 124, 90, 0.18);
+}
+
+.nav-actions .nav-register:hover,
+.nav-actions .nav-register:focus-visible {
+  background: linear-gradient(135deg, var(--green-800), var(--telecom-blue));
+  border-color: transparent;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
