@@ -8,6 +8,22 @@
       name="description"
       content="Локальный внутренний сайт проекта «Дерево жизни сотрудника» для Будущей Аллеи Казахтелекома."
     />
+    <script>
+      (() => {
+        const registrationKey = "kt-tree-alley-registered-v1";
+        let registered = new URLSearchParams(window.location.search).get("registered") === "1";
+        try {
+          if (registered) {
+            localStorage.setItem(registrationKey, "1");
+          } else {
+            registered = localStorage.getItem(registrationKey) === "1";
+          }
+        } catch (error) {
+          // При открытии через file:// хранилище может быть недоступно.
+        }
+        if (!registered) window.location.replace("register.html");
+      })();
+    </script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>

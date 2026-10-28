@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Локальная форма регистрации сотрудника и его посаженного дерева для проекта «Будущая Аллея Казахтелекома»." />
+    <title>Регистрация сотрудника | Аллея Казахтелекома</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .registration-page { min-height: 100vh; padding: 26px clamp(18px, 4vw, 56px) 64px; }
+      .registration-page .topbar { margin-bottom: 34px; }
+      .registration-page .brand { min-width: 0; }
+      .back-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--green-800); padding: 10px 16px; font-weight: 700; }
+      .back-link:hover, .back-link:focus-visible { border-color: var(--green-500); background: var(--green-100); }
+      .registration-layout { width: min(1180px, 100%); margin: 0 auto; display: grid; grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr); gap: 24px; align-items: start; }
+      .intro-panel, .form-panel { border: 1px solid var(--line); border-radius: 28px; background: rgba(255,255,255,.9); box-shadow: var(--shadow); }
+      .intro-panel { position: sticky; top: 24px; min-height: 520px; overflow: hidden; padding: clamp(28px, 4vw, 46px); background: linear-gradient(155deg, #0f4234 0%, #176b52 58%, #0076a8 100%); color: #fff; }
+      .intro-panel::after { content: ""; position: absolute; right: -110px; bottom: -105px; width: 300px; height: 300px; border: 30px solid rgba(255,255,255,.12); border-radius: 50%; pointer-events: none; }
+      .intro-panel .eyebrow { color: #b7f3df; }
+      .intro-panel h1 { color: #fff; font-size: clamp(38px, 5vw, 60px); line-height: 1.02; }
+      .intro-panel .lead { color: #e4f8ef; font-size: 18px; max-width: 36ch; }
+      .intro-panel .subtitle { color: #b7f3df; font-size: 20px; margin-bottom: 28px; }
+      .steps { position: relative; z-index: 1; display: grid; gap: 15px; margin: 36px 0 0; padding: 0; list-style: none; }
+      .steps li { display: flex; align-items: flex-start; gap: 12px; color: #eefaf4; }
+      .steps span { flex: 0 0 28px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.18); font-size: 13px; font-weight: 800; }
+      .form-panel { padding: clamp(24px, 4vw, 44px); }
+      .form-panel h2 { color: var(--green-900); font-size: clamp(28px, 3vw, 36px); margin-bottom: 8px; }
+      .form-intro { color: var(--muted); margin-bottom: 28px; }
+      .registration-form { display: grid; gap: 30px; }
+      .form-section { margin: 0; padding: 0; border: 0; min-width: 0; }
+      .form-section legend { width: 100%; padding: 0 0 13px; margin-bottom: 19px; border-bottom: 1px solid var(--line); color: var(--green-900); font-size: 19px; font-weight: 800; }
+      .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .field { display: grid; align-content: start; gap: 7px; color: var(--green-900); font-size: 14px; font-weight: 700; }
+      .field.wide { grid-column: 1 / -1; }
+      .field input, .field select, .field textarea { width: 100%; min-width: 0; border: 1px solid #cddfd2; border-radius: 12px; background: #fff; color: var(--text); padding: 13px 14px; outline: none; }
+      .field textarea { min-height: 92px; resize: vertical; }
+      .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { border-color: var(--green-700); box-shadow: 0 0 0 3px rgba(71,169,109,.17); }
+      .field small { color: var(--muted); font-weight: 400; }
+      .required { color: #ad4d36; }
+      .confirmation { display: flex; align-items: flex-start; gap: 11px; color: var(--text); font-size: 14px; }
+      .confirmation input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--green-700); }
+      .notice { padding: 16px 18px; border: 1px solid var(--green-200); border-radius: 16px; background: var(--green-100); color: var(--green-900); font-size: 14px; }
+      .notice strong { display: block; margin-bottom: 5px; }
+      .notice p { margin: 0; }
+      .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+      .submit-button { border: 0; border-radius: 14px; background: linear-gradient(135deg, var(--green-700), var(--telecom-blue)); color: #fff; padding: 14px 20px; font-weight: 800; cursor: pointer; box-shadow: 0 12px 25px rgba(31,124,90,.2); }
+      .submit-button:hover, .submit-button:focus-visible { filter: brightness(1.07); }
+      .form-status { min-height: 24px; margin: 0; color: var(--green-800); font-weight: 700; }
+      @media (max-width: 850px) { .registration-layout { grid-template-columns: 1fr; } .intro-panel { position: static; min-height: auto; } }
+      @media (max-width: 580px) { .registration-page .topbar { align-items: flex-start; } .field-grid { grid-template-columns: 1fr; } .field.wide { grid-column: auto; } .form-actions { align-items: stretch; flex-direction: column; } .submit-button { width: 100%; } }
+    </style>
+  </head>
+  <body>
+    <div class="registration-page">
+      <header class="topbar">
+        <a class="brand" href="index.html" aria-label="На главную страницу Аллеи Казахтелекома">
+          <span class="brand-mark">KT</span>
+          <span><span class="brand-name">Казахтелеком</span><span class="brand-caption">экологическая инициатива</span></span>
+        </a>
+        <a class="back-link" href="index.html">← На главную</a>
+      </header>
+
+      <main class="registration-layout">
+        <aside class="intro-panel">
+          <p class="eyebrow">Таза Қазақстан · дерево жизни сотрудника</p>
+          <h1>Регистрация сотрудника</h1>
+          <p class="subtitle">Будущая Аллея Казахтелекома</p>
+          <p class="lead">Зафиксируйте имя сотрудника и сведения о его уже посаженном дереве.</p>
+          <ol class="steps">
+            <li><span>1</span> Заполните данные сотрудника.</li>
+            <li><span>2</span> Укажите сведения о посадке дерева.</li>
+            <li><span>3</span> Скачайте запись и передайте её ответственному за журнал проекта.</li>
+          </ol>
+        </aside>
+
+        <section class="form-panel" aria-labelledby="form-title">
+          <h2 id="form-title">Новое дерево жизни</h2>
+          <p class="form-intro">Поля со звёздочкой обязательны. Форма работает без интернета и не отправляет данные на сервер.</p>
+
+          <form id="registrationForm" class="registration-form">
+            <fieldset class="form-section">
+              <legend>01 · Сотрудник</legend>
+              <div class="field-grid">
+                <label class="field wide" for="fullName"><span>ФИО сотрудника <span class="required">*</span></span>
+                  <input id="fullName" name="fullName" type="text" autocomplete="name" maxlength="120" placeholder="Например: Айдана Сарсенова" required />
+                </label>
+                <label class="field" for="employeeNumber"><span>Табельный номер <span class="required">*</span></span>
+                  <input id="employeeNumber" name="employeeNumber" type="text" autocomplete="off" maxlength="40" placeholder="Например: KT-10234" required />
+                </label>
+                <label class="field" for="position"><span>Должность <span class="required">*</span></span>
+                  <input id="position" name="position" type="text" maxlength="100" placeholder="Например: инженер связи" required />
+                </label>
+                <label class="field wide" for="department"><span>Подразделение <span class="required">*</span></span>
+                  <input id="department" name="department" type="text" maxlength="100" placeholder="Например: технический блок" required />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+              <legend>02 · Посаженное дерево</legend>
+              <div class="field-grid">
+                <label class="field" for="city"><span>Город посадки <span class="required">*</span></span>
+                  <input id="city" name="city" type="text" maxlength="80" value="Астана" required />
+                </label>
+                <label class="field" for="plantingDate"><span>Дата посадки <span class="required">*</span></span>
+                  <input id="plantingDate" name="plantingDate" type="date" required />
+                </label>
+                <label class="field wide" for="treeType"><span>Порода дерева <span class="required">*</span></span>
+                  <input id="treeType" name="treeType" type="text" maxlength="80" placeholder="Например: берёза" required />
+                </label>
+                <label class="field wide" for="note">Примечание
+                  <textarea id="note" name="note" maxlength="500" placeholder="Например: участок посадки или особенности ухода"></textarea>
+                  <small>Место на карте и координаты ответственный добавит при внесении записи в журнал.</small>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="confirmation" for="plantedConfirmation">
+              <input id="plantedConfirmation" name="plantedConfirmation" type="checkbox" required />
+              <span>Подтверждаю, что дерево уже посажено и сведения указаны верно. <span class="required">*</span></span>
+            </label>
+
+            <div class="notice">
+              <strong>Как сохраняется запись</strong>
+              <p>После регистрации браузер скачает JSON-файл на ваш компьютер и откроет главную страницу. Запись не появится на карте автоматически: её должен проверить и добавить в локальный журнал ответственный сотрудник. Не публикуйте файл с персональными данными в открытом репозитории.</p>
+            </div>
+
+            <div class="form-actions">
+              <button class="submit-button" type="submit">Зарегистрироваться и перейти</button>
+              <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const form = document.getElementById("registrationForm");
+      const status = document.getElementById("formStatus");
+      const plantingDateInput = document.getElementById("plantingDate");
+      const today = new Date();
+      plantingDateInput.max = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, "0"), String(today.getDate()).padStart(2, "0")].join("-");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        status.textContent = "";
+        if (!form.reportValidity()) return;
+
+        const values = new FormData(form);
+        const date = String(values.get("plantingDate"));
+        const [year, month] = date.split("-").map(Number);
+        const season = month >= 3 && month <= 5 ? "Весна" : month >= 6 && month <= 8 ? "Лето" : month >= 9 && month <= 11 ? "Осень" : "Зима";
+        const clean = (key) => String(values.get(key) || "").trim().replace(/\s+/g, " ");
+        const record = {
+          id: `tree-${Date.now()}`,
+          fullName: clean("fullName"),
+          employeeNumber: clean("employeeNumber"),
+          position: clean("position"),
+          department: clean("department"),
+          city: clean("city"),
+          plantingYear: year,
+          plantingPeriod: `${season} ${year}`,
+          plantingDate: date,
+          treeType: clean("treeType"),
+          status: "Посажено",
+          note: clean("note")
+        };
+        const blob = new Blob([JSON.stringify(record, null, 2)], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `tree-record-${date}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        try {
+          localStorage.setItem("kt-tree-alley-registered-v1", "1");
+        } catch (error) {
+          // Переход на главную с параметром работает и без localStorage.
+        }
+        status.textContent = "Запись скачана. Открываем главную страницу…";
+        setTimeout(() => window.location.assign("index.html?registered=1"), 800);
+      });
+    </script>
+  </body>
+</html>
